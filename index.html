@@ -1,19 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <p>Cheese:</p> 
-<ul>
-<?py
-    cheeses = ['brie', 'cheddar', 'death star']
-    for c in cheeses:
-        print ("<li>" + c + "</li>")
-?>
-</ul>
-<p>No more cheese :(</p>
-</body>
+<html>
+  <head>
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="calc-container">
+      <div class="display-container">
+        <p id="grand-total"></p>
+        <h1 id="h1">0</h1>
+      </div>
+      <div class="ex-btns">
+        <div class="ex"><button id="AC" onclick="ac()">AC</button></div>
+        <div class="ex">
+          <button id="divide" onclick="divide()">&divide;</button>
+        </div>
+        <div class="ex">
+          <button id="times" onclick="mult()">&times;</button>
+        </div>
+        <div class="ex">
+          <button id="minus" onclick="minus()">&minus;</button>
+        </div>
+        <div class="ex"><button id="plus" onclick="add()">&plus;</button></div>
+      </div>
+      <div class="numbers-container">
+        <div class="number"><button id="9" onclick="btn9()">9</button></div>
+        <div class="number"><button id="8" onclick="btn8()">8</button></div>
+        <div class="number"><button id="7" onclick="btn7()">7</button></div>
+        <div class="number"><button id="6" onclick="btn6()">6</button></div>
+        <div class="number"><button id="5" onclick="btn5()">5</button></div>
+        <div class="number"><button id="4" onclick="btn4()">4</button></div>
+        <div class="number"><button id="3" onclick="btn3()">3</button></div>
+        <div class="number"><button id="2" onclick="btn2()">2</button></div>
+        <div class="number"><button id="1" onclick="btn1()">1</button></div>
+        <div class="number">
+          <button id="period" onclick="btnP()">&period;</button>
+        </div>
+        <div class="number"><button id="0" onclick="btn0()">0</button></div>
+        <div class="number">
+          <button id="equals" onclick="btnEq()">&equals;</button>
+        </div>
+      </div>
+    </main>
+    <script src="script.js"></script>
+  </body>
 </html>
