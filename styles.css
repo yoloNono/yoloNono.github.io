@@ -22,7 +22,7 @@ body {
   }
   
   .calc-container {
-    margin-top: 50%;
+    margin-top: 10px;
     border: 2px solid rgb(47, 45, 45);
     border-radius: 5px;
     width: 270px;
