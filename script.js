@@ -11,15 +11,15 @@ let key = {}
 let pane1 = {
   x: 10,
   y: canvas.height / 2,
-  width: 10,
-  height: 87,
+  width: 7,
+  height: 80,
   speed: 5.5
 }
 let pane2 = {
-  x: canvas.width - 10,
+  x: canvas.width - 15,
   y: canvas.height / 2,
-  width: 10,
-  height: 87,
+  width: 7,
+  height: 80,
   speed: 5.5
 }
 function drawPanes(){
@@ -34,9 +34,12 @@ function lines() {
   c.fillRect(canvas.width / 2, 300, 5, 20);
   c.fillRect(canvas.width / 2, 200, 5, 20);
   c.fillRect(canvas.width / 2, 100, 5, 20);
+  c.fillRect(canvas.width / 2, 10, 5, 20);
+  c.fillRect(canvas.width / 2, canvas.height - 30, 5, 20);
 }
 
 let colors = ['#732002', '#0D2CD9', '#3F3CA6', '#BF349A', '#BF1F6A'];
+let count = 0;
 function Ball(x, y, size, dx, dy){
   this.x = x;
   this.y = y;
@@ -61,9 +64,19 @@ function Ball(x, y, size, dx, dy){
     }
     if((this.x > 0 || this.x < 0) && (this.x + this.size >= pane2.x && this.y + this.size <= pane2.y + pane2.height && this.y - this.size >= pane2.y)){
       this.dx *= -1;
+      count++;
     }
     if((this.x < 0 || this.x > 0) && (this.x - this.size <= pane1.x + pane1.width && this.y + this.size <= pane1.y + pane1.height && this.y - this.size >= pane1.y)){
       this.dx *= -1;
+      count++;
+    }
+    if(count % 10 === 0 && count !== 0){
+        if(this.dx < 0){
+            this.dx -= 0.5;
+        }
+        if(this.dx > 0){
+            this.dx += 0.5;
+        }
     }
    
   }
@@ -75,7 +88,7 @@ document.addEventListener('keyup', event => {
   key[event.key] = false;
   });
 function randomChoice() {
-  return Math.random() < 0.5 ? -4 : 4;
+  return Math.random() < 0.5 ? -3 : 3;
 }
 let pong = new Ball(canvas.width / 2, canvas.height / 2, 10, randomChoice(), randomChoice());
 function changeC() {
@@ -93,18 +106,12 @@ function end(){
     set = false;
     tim = setTimeout(() => {
     set = true;
-    int = setInterval(() => {
-    if(pong.dx < 0){
-      pong.dx--;
-    }else {
-      pong.dx++;
-    }
-    }, 8000);
     }, 2000);
     pane1.x = 10;
-    pane2.x = canvas.width - 10;
+    pane2.x = canvas.width - 15;
     pane1.y = canvas.height / 2;
     pane2.y = canvas.height / 2;
+    count = 0;
 
 
   }
@@ -176,6 +183,6 @@ function loop() {
     text1++;
   }
   end();
-  //lines();
+  lines();
 }
 loop();
