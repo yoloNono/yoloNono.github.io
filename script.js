@@ -186,8 +186,5 @@ function loop() {
   }
   end();
   lines();
-  c.fillStyle = 'white';
-  c.font = '25px Arial';
-  c.fillText(count, canvas.width / 2, 20);
 }
 loop();
