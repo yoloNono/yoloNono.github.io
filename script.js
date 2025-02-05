@@ -73,9 +73,11 @@ function Ball(x, y, size, dx, dy){
     if(count % 10 === 0 && count !== 0){
         if(this.dx < 0){
             this.dx -= 0.5;
+            count++;
         }
         if(this.dx > 0){
             this.dx += 0.5;
+            count++;
         }
     }
    
@@ -184,5 +186,8 @@ function loop() {
   }
   end();
   lines();
+  c.fillStyle = 'white';
+  c.font = '25px Arial';
+  c.fillText(count, canvas.width / 2, 20);
 }
 loop();
