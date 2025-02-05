@@ -13,7 +13,7 @@ let pane1 = {
   y: canvas.height / 2,
   width: 7,
   height: 80,
-  speed: 5.5
+  speed: 4
 }
 let pane2 = {
   x: canvas.width - 15,
@@ -187,8 +187,5 @@ function loop() {
   }
   end();
   lines();
-  c.fillStyle = 'white';
-  c.font = '25px Arial';
-  c.fillText(count, canvas.width / 2, 20);
 }
 loop();
