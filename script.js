@@ -100,22 +100,49 @@ function end(){
     set = false;
     tim = setTimeout(() => {
     set = true;
+    pong.dx = randomChoice();
+    int = setInterval(() => {
+    if(pong.dx < 0){
+      pong.dx--;
+    }else {
+      pong.dx++;
+    }
+    }, 8000);
     }, 2000);
     pane1.x = 10;
     pane2.x = canvas.width - 10;
     pane1.y = canvas.height / 2;
     pane2.y = canvas.height / 2;
+
+
   }
 }
 let set = false;
+let int;
 let tim = setTimeout(() => {
   set = true;
+  int = setInterval(() => {
+    if(pong.dx < 0){
+      pong.dx--;
+    }else {
+      pong.dx++;
+    }
+  }, 6000);
 }, 2000);
+let text1 = 0;
+let text2 = 0;
+function text() {
+  c.fillStyle = 'blue';
+  c.font = '50px Arial';
+  c.fillText(text1, 90, 90);
+  c.fillText(text2, 460, 90);
+}
 function loop() {
   requestAnimationFrame(loop);
   c.fillStyle = 'rgba(0, 0, 0, 0.5)';
   c.fillRect(0, 0, canvas.width, canvas.height);
   drawPanes();
+  text();
   if (key.ArrowUp) {
     if(pane2.y  <= 0){
      
@@ -149,6 +176,12 @@ function loop() {
     pong.update();
   }
   changeC();
+  if(pong.x - pong.size <= 0){
+    text2++;
+  }
+  if(pong.x + pong.size >= canvas.width){
+    text1++;
+  }
   end();
 }
 loop();
