@@ -1,216 +1,154 @@
-//Declare a const to get the display Value
-const h1El = document.getElementById("h1");
-//Declare a const for the maxlength of the display
-const maxLength = 9;
-//Declare const for the Grand Total text to appear
-const gt = document.getElementById("grand-total");
-//Declar const for AC button
-const acBtn = document.getElementById("AC");
-//Declar a const for the character '.'
-const char = '.';
-
-//Declare 2 let variables to keep track of the process
-let tracker = [];
-let symbol = [];
-//Declare a variable to false for the track function
-let value = false;
-
-/*Main function so you can re-use code with different values
-as long you place a value inside the number perameter*/
-function main(number) {
-  let dispVal = h1El.textContent;
-  if (dispVal === "0") {
-    h1El.textContent = number;
-  } else {
-    let newVal = dispVal + number;
-    if (newVal.length > maxLength) {
-      h1El.textContent = newVal.slice(0, maxLength);
-    } else {
-      h1El.textContent = newVal;
+const canvas = document.getElementById('canvas');
+const c = canvas.getContext('2d');
+canvas.width = 600;
+canvas.height = 600;
+window.addEventListener('resize', () => {
+  canvas.width = 600;
+  canvas.height = 600;
+  drawPanes();
+});
+let key = {}
+let pane1 = {
+  x: 10,
+  y: canvas.height / 2,
+  width: 10,
+  height: 87,
+  speed: 5
+}
+let pane2 = {
+  x: canvas.width - 10,
+  y: canvas.height / 2,
+  width: 10,
+  height: 87,
+  speed: 5
+}
+function drawPanes(){
+  c.fillStyle = 'white';
+  c.fillRect(pane1.x, pane1.y, pane1.width, pane1.height);
+  c.fillRect(pane2.x, pane2.y, pane2.width, pane2.height);
+}
+// class Ob {
+//   constructor(){
+//     this.x = Math.random() * canvas.width;
+//     this.y = 200;
+//     this.width = 20;
+//     this.height = 35;
+//     this.dx = 3;
+//     this.dy = 3;
+//   }
+//   update(){
+//     this.draw();
+//   }
+//   draw(){
+//     c.fillStyle = 'green';
+//     c.fillRect(this.x, this.y, this.width, this.height);
+//   }
+// }
+let colors = ['#732002', '#0D2CD9', '#3F3CA6', '#BF349A', '#BF1F6A'];
+function Ball(x, y, size, dx, dy){
+  this.x = x;
+  this.y = y;
+  this.size = size;
+  this.dx = dx;
+  this.dy = dy;
+  this.color = 'white';
+  this.draw = function() {
+    c.beginPath();
+    c.fillStyle = this.color;
+    c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    c.fill();
+  }
+  this.update = function() {
+    this.y += this.dy;
+    this.x += this.dx;
+    if(this.x + this.size >= canvas.width || this.x - this.size <= 0){
+      this.dx *= -1;
     }
+    if(this.y + this.size >= canvas.height || this.y - this.size <= 0){
+      this.dy *= -1;
+    }
+    if((this.x > 0 || this.x < 0) && (this.x + this.size >= pane2.x && this.y + this.size <= pane2.y + pane2.height && this.y - this.size >= pane2.y)){
+      this.dx *= -1;
+    }
+    if((this.x < 0 || this.x > 0) && (this.x - this.size <= pane1.x + pane1.width && this.y + this.size <= pane1.y + pane1.height && this.y - this.size >= pane1.y)){
+      this.dx *= -1;
+    }
+   
   }
 }
-
-//Function that keeps track of the total by updatign tracker
-function track(sign) {
-  let dispVal = h1El.textContent;
-  tracker.push(dispVal);
-  symbol.push(sign);
-  h1El.textContent = "";
-
-  if (tracker.length > 1 && symbol.length >= 2) {
-    let sgn = symbol[1];
-    if (symbol[0] === "+") {
-      let total = Number(tracker[0]) + Number(tracker[1]);
-      tracker = [total.toFixed(3)];
-      symbol = [sgn];
-    } else if (symbol[0] === "-") {
-      
-      let total = Number(tracker[0]) - Number(tracker[1]);
-      tracker = [total.toFixed(3)];
-      symbol = [sgn];
-    } else if (symbol[0] === "*") {
-      
-      let total = Number(tracker[0]) * Number(tracker[1]);
-      tracker = [total.toFixed(3)];
-      symbol = [sgn];
-    } else if (symbol[0] === "/") {
-      let total = Number(tracker[0]) / Number(tracker[1]);
-      tracker = [total.toFixed(3)];
-      symbol = [sgn];
-    }
-  }
-
-  
-  
-}
-
-//Function to show final value when eq btn is clicked
-function final() {
-    let zero = String(tracker[0]);
-  if (zero.length > maxLength) {
-      h1El.textContent = 'ERROR';
-      gt.textContent = 'ERROR';
-      alert('Calculator Error (Total is too long), Clear calculator or refresh page');
-      document.querySelectorAll("button").forEach((button) => {button.disabled = true;});
-      document.getElementById('AC').disabled = false;
-  } else {
-  h1El.textContent = tracker[0];
-  gt.textContent = "Grand Total";
-  document.querySelectorAll("button").forEach((button) => {
-    button.disabled = true;
+document.addEventListener('keydown', event => {
+  key[event.key] = true;
+});
+document.addEventListener('keyup', event => {
+  key[event.key] = false;
   });
-  document.getElementById("AC").disabled = false;
-  }
+function randomChoice() {
+  return Math.random() < 0.5 ? -4 : 4;
 }
-
-//Function if tracker[0] has a decimal number for the final answer
-function check() {
-    str = String(tracker[0]);
-    index = str.indexOf(char);
-    strb = index ? str.substring(0, index) : undefined;
-    stra = index ? str.substring(index + 1) : undefined;
-    function inside() {
-        tracker = str.charAt(char) ? [tracker[0].toFixed(2)] : [tracker[0]];
-        let x = String(tracker[0]);
-        if (x.length > maxLength) {
-      h1El.textContent = 'ERROR';
-      gt.textContent = 'ERROR';
-      alert('Calculator Error (Total is too long), Clear calculator or refresh page');
-      document.querySelectorAll("button").forEach((button) => {button.disabled = true;});
-      document.getElementById('AC').disabled = false;
-        } else {
-            final();
-        }
-    } inside();
-}
-//Functions that add numbers to the display value
-function btn1() {
-  main(1);
-}
-
-function btn2() {
-  main(2);
-}
-
-function btn3() {
-  main(3);
-}
-
-function btn4() {
-  main(4);
-}
-
-function btn5() {
-  main(5);
-}
-
-function btn6() {
-  main(6);
-}
-
-function btn7() {
-  main(7);
-}
-
-function btn8() {
-  main(8);
-}
-
-function btn9() {
-  main(9);
-}
-
-function btnP() {
-  main(".");
-}
-
-function btn0() {
-  main(0);
-}
-
-//Function to clear the calculator
-function ac() {
-  h1El.textContent = "0";
-  gt.textContent = "";
-  tracker = [];
-  value = false;
-  symbol = [];
-  console.clear();
-  document.querySelectorAll("button").forEach((button) => {
-    button.disabled = false;
-  });
-}
-
-//Functions to keep tracker updated
-function divide() {
-  track("/");
-}
-
-function add() {
-  track("+");
-}
-
-function minus() {
-  track("-");
-}
-
-function mult() {
-  track("*");
-}
-
-//Function to get the total
-function btnEq() {
-  if (tracker.length === 1 && symbol.length === 1 && h1El.textContent !== "") {
-    tracker.push(h1El.textContent);
-    if (symbol[0] === "+") {
-      let total = Number(tracker[0]) + Number(tracker[1]);
-      tracker = [total];
-      symbol = [];
-      check();
-    } else if (symbol[0] === "-") {
-      let total = Number(tracker[0]) - Number(tracker[1]);
-      tracker = [total];
-      symbol = [];
-      check();
-    } else if (symbol[0] === "/") {
-      let total = Number(tracker[0]) / Number(tracker[1]);
-      tracker = [total];
-      symbol = [];
-      check();
-    } else if (symbol[0] === "*") {
-      let total = Number(tracker[0]) * Number(tracker[1]);
-      tracker = [total];
-      symbol = [];
-      check();
-    } else {
-      console.log("TROLL");
+let pong = new Ball(canvas.width / 2, canvas.height / 2, 10, randomChoice(), randomChoice());
+function changeC() {
+    if((pong.x > 0 || pong.x < 0) && (pong.x + pong.size >= pane2.x && pong.y + pong.size <= pane2.y + pane2.height && pong.y - pong.size >= pane2.y)){
+      pong.color = colors[Math.floor(Math.random() * colors.length)];
     }
-  } else {
-    check();
+    if((pong.x < 0 || pong.x > 0) && (pong.x - pong.size <= pane1.x + pane1.width && pong.y + pong.size <= pane1.y + pane1.height && this.y - pong.size >= pane1.y)){
+      pong.color = colors[Math.floor(Math.random() * colors.length)];
+    }
+}
+function end(){
+  if(pong.x + pong.size >= canvas.width || pong.x - pong.size <= 0){
+    pong = new Ball(canvas.width / 2, canvas.height / 2, 10, randomChoice(), randomChoice());
+    set = false;
+    tim = setTimeout(() => {
+    set = true;
+    }, 2000);
+    pane1.x = 10;
+    pane2.x = canvas.width - 10;
+    pane1.y = 100;
+    pane2.y = 100;
   }
 }
-
-
-//The console.log's in the program are just a way to make sure it worked, didn't feel like taking them out once I finished to project
-
+let set = false;
+let tim = setTimeout(() => {
+  set = true;
+}, 2000);
+function loop() {
+  requestAnimationFrame(loop);
+  c.fillStyle = 'rgba(0, 0, 0, 0.5)';
+  c.fillRect(0, 0, canvas.width, canvas.height);
+  drawPanes();
+  if (key.ArrowUp) {
+    if(pane2.y  <= 0){
+     
+    }else {
+      pane2.y -= pane2.speed;
+    }
+  }
+  if(key.ArrowDown){
+    if(pane2.y + pane2.height >= canvas.height){
+     
+    }else {
+      pane2.y += pane2.speed;
+    }
+  }
+  if(key.w){
+    if(pane1.y <= 0){
+     
+    }else {
+      pane1.y -= pane1.speed;
+    }
+  }
+  if(key.s){
+    if(pane1.y + pane1.height >= canvas.height){
+     
+    }else {
+      pane1.y += pane1.speed;
+    }
+  }
+  pong.draw();
+  if(set){
+    pong.update();
+  }
+  changeC();
+  end();
+}
+loop();
