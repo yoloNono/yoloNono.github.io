@@ -213,3 +213,4 @@ function btnEq() {
 
 
 //The console.log's in the program are just a way to make sure it worked, didn't feel like taking them out once I finished to project
+
