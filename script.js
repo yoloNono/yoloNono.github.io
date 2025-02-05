@@ -13,7 +13,7 @@ let pane1 = {
   y: canvas.height / 2,
   width: 7,
   height: 80,
-  speed: 4
+  speed: 2
 }
 let pane2 = {
   x: canvas.width - 15,
