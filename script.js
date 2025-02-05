@@ -13,14 +13,14 @@ let pane1 = {
   y: canvas.height / 2,
   width: 10,
   height: 87,
-  speed: 5
+  speed: 5.5
 }
 let pane2 = {
   x: canvas.width - 10,
   y: canvas.height / 2,
   width: 10,
   height: 87,
-  speed: 5
+  speed: 5.5
 }
 function drawPanes(){
   c.fillStyle = 'white';
