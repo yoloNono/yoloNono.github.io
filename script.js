@@ -103,8 +103,8 @@ function end(){
     }, 2000);
     pane1.x = 10;
     pane2.x = canvas.width - 10;
-    pane1.y = 100;
-    pane2.y = 100;
+    pane1.y = canvas.height / 2;
+    pane2.y = canvas.height / 2;
   }
 }
 let set = false;
