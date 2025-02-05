@@ -27,23 +27,15 @@ function drawPanes(){
   c.fillRect(pane1.x, pane1.y, pane1.width, pane1.height);
   c.fillRect(pane2.x, pane2.y, pane2.width, pane2.height);
 }
-// class Ob {
-//   constructor(){
-//     this.x = Math.random() * canvas.width;
-//     this.y = 200;
-//     this.width = 20;
-//     this.height = 35;
-//     this.dx = 3;
-//     this.dy = 3;
-//   }
-//   update(){
-//     this.draw();
-//   }
-//   draw(){
-//     c.fillStyle = 'green';
-//     c.fillRect(this.x, this.y, this.width, this.height);
-//   }
-// }
+function lines() {
+  c.fillStyle = 'white';
+  c.fillRect(canvas.width / 2, 500, 5, 20);
+  c.fillRect(canvas.width / 2, 400, 5, 20);
+  c.fillRect(canvas.width / 2, 300, 5, 20);
+  c.fillRect(canvas.width / 2, 200, 5, 20);
+  c.fillRect(canvas.width / 2, 100, 5, 20);
+}
+
 let colors = ['#732002', '#0D2CD9', '#3F3CA6', '#BF349A', '#BF1F6A'];
 function Ball(x, y, size, dx, dy){
   this.x = x;
@@ -96,11 +88,11 @@ function changeC() {
 }
 function end(){
   if(pong.x + pong.size >= canvas.width || pong.x - pong.size <= 0){
+    pong = null;
     pong = new Ball(canvas.width / 2, canvas.height / 2, 10, randomChoice(), randomChoice());
     set = false;
     tim = setTimeout(() => {
     set = true;
-    pong.dx = randomChoice();
     int = setInterval(() => {
     if(pong.dx < 0){
       pong.dx--;
@@ -127,7 +119,7 @@ let tim = setTimeout(() => {
     }else {
       pong.dx++;
     }
-  }, 6000);
+  }, 8000);
 }, 2000);
 let text1 = 0;
 let text2 = 0;
@@ -135,6 +127,7 @@ function text() {
   c.fillStyle = 'blue';
   c.font = '50px Arial';
   c.fillText(text1, 90, 90);
+  c.fillStyle = 'red';
   c.fillText(text2, 460, 90);
 }
 function loop() {
@@ -183,5 +176,6 @@ function loop() {
     text1++;
   }
   end();
+  //lines();
 }
 loop();
