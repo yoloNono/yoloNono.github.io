@@ -75,14 +75,14 @@ document.addEventListener("keyup", (event) => {
 let bullets = [];
 let ships = [];
 function spawn() {
-  if (key.a) {
+  if (key.a || key.ArrowLeft) {
    if(player.x <= 10){
 
    }else {
     player.x -= player.speed;
    }
   }
-  if (key.d) {
+  if (key.d || key.ArrowRight) {
     if(player.x >= canvas.width - 70){
 
     }else {
