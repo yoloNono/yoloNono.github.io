@@ -26,7 +26,7 @@ function drawPanes(){
   c.fillStyle = 'white';
   c.fillRect(pane1.x, pane1.y, pane1.width, pane1.height);
   c.fillRect(pane2.x, pane2.y, pane2.width, pane2.height);
-  pane1.y = pong.y - 40;
+  // Pong Pane AI pane1.y = pong.y - 40;
 }
 function lines() {
   c.fillStyle = 'white';
