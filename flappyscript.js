@@ -24,6 +24,9 @@ document.addEventListener('keydown', e => {
     bird.dy = -11;
   }
 });
+document.addEventListener('click', () => {
+  bird.dy = -11;
+});
 
 function draw() {
   c.beginPath();
