@@ -38,14 +38,15 @@ class Pole {
     this.y = 0;;
     this.sy = canvas.height;
     this.width = 50;
-    this.height = Math.floor(Math.random() * (200 - 160 + 1)) + 160;
+    this.height = Math.floor(Math.random() * (300 - 100 + 1)) + 100;
+    this.sheight = -canvas.height + this.height + 150;
     this.color = 'green';
     this.dx = 3;
   }
   draw() {
     c.fillStyle = this.color;;
     c.fillRect(this.x, this.y, this.width, this.height);
-    c.fillRect(this.x, this.sy, this.width, -this.height);
+    c.fillRect(this.x, this.sy, this.width, this.sheight);
   }
   update() {
     this.x -= this.dx;
