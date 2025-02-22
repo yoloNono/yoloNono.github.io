@@ -36,7 +36,7 @@ class Pole {
 		this.y = 0;
 		this.width = 50;
 		this.height = Math.floor(Math.random() * (300 - 50 + 1)) + 50;
-        this.gap = Math.floor(Math.random() * (200 - 130 + 1)) + 130;
+        this.gap = Math.floor(Math.random() * (160 - 130 + 1)) + 130;
         this.sy = canvas.height;
         this.sheight = -canvas.height + this.height + this.gap;
 		this.dx = 3;
