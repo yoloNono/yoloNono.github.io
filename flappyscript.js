@@ -31,6 +31,10 @@ document.addEventListener("keydown", (e) => {
     bird.dy = -10;
   }
 });
+document.addEventListener("touchstart", () => {
+  bird.dy = -10;
+});
+
 class Pole {
   constructor() {
     this.x = canvas.width;
