@@ -110,8 +110,12 @@ function reset(e) {
 document.addEventListener("click", (e) => {
   reset(e);
 });
-function loop() {
-  requestAnimationFrame(loop);
-  gm();
-}
-loop();
+
+setInterval(() => {
+  gm(); 
+}, 16);
+// function loop() {
+//   requestAnimationFrame(loop);
+//   gm();
+// }
+// loop();
