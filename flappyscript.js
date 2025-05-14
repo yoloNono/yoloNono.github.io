@@ -111,11 +111,8 @@ document.addEventListener("click", (e) => {
   reset(e);
 });
 
-setInterval(() => {
-  gm(); 
-}, 16);
-// function loop() {
-//   requestAnimationFrame(loop);
-//   gm();
-// }
-// loop();
+function loop() {
+  requestAnimationFrame(loop);
+  gm();
+}
+loop();
